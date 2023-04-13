@@ -72,6 +72,9 @@ int lbfgsb_minimize
  // Dimensionality, number of variables
  int dim,
 
+ // maximun iterations to run
+ int max_iter,
+
  // Bounds
  int *bounds_control,
  double *lower_bounds,

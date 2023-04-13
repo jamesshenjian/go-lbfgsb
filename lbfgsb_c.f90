@@ -303,6 +303,8 @@ contains
        func, grad, callback_data, &
        ! Dimensionality
        dim_c, &
+       ! Maximum iterations
+       max_iter_c, &
        ! Bounds
        bounds_control_c, lower_bounds_c, upper_bounds_c, &
        ! Parameters
@@ -323,7 +325,7 @@ contains
     type(c_funptr), intent(in), value :: func, grad, log_function
     type(c_ptr), intent(in), value :: callback_data, &
          log_function_callback_data
-    integer(c_int), intent(in), value :: dim_c, approximation_size_c, &
+    integer(c_int), intent(in), value :: dim_c, max_iter_c, approximation_size_c, &
          print_control_c, status_message_length_c
     real(c_double), intent(in), value :: f_tolerance_c, g_tolerance_c
     integer(c_int), intent(in) :: bounds_control_c(dim_c)
@@ -362,6 +364,7 @@ contains
     !print *, '  grad:', c_associated(grad)
     !print *, '  callback_data:', c_associated(callback_data)
     !print *, '  dim_c:', dim_c
+    !print *, '  max_iter_c:', max_iter_c
     !print *, '  bounds_control_c:', bounds_control_c
     !print *, '  lower_bounds_c:', lower_bounds_c
     !print *, '  upper_bounds_c:', upper_bounds_c
@@ -466,6 +469,8 @@ contains
           ! Terminate optimization on any error
           if (status_c /= LBFGSB_STATUS_SUCCESS) exit
        end select
+       iters_c = int_state(30)
+       if (iters_c > max_iter_c) exit
     end do
     ! End optimization
 

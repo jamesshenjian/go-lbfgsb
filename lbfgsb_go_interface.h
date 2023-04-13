@@ -11,6 +11,7 @@ int lbfgsb_minimize_c
 (
  void *callback_data,
  int dim,
+ int max_iter,
  int *bounds_control,
  double *lower_bounds,
  double *upper_bounds,

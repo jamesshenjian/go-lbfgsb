@@ -73,7 +73,7 @@ func main() {
 	// Minimize sphere function
 	fmt.Printf("----- Sphere Function -----\n")
 	x0_5d := []float64{10.0, -9.0, 8.0, -7.0, 6.0}
-	minimum, exitStatus := sphereOptimizer.Minimize(sphereObjective, x0_5d)
+	minimum, exitStatus := sphereOptimizer.Minimize(100, sphereObjective, x0_5d)
 	stats := sphereOptimizer.OptimizationStatistics()
 	PrintResults(sphereMin, minimum, exitStatus, stats)
 
@@ -100,7 +100,7 @@ func main() {
 	// Minimize Rosenbrock
 	fmt.Printf("----- Rosenbrock Function -----\n")
 	x0_2d := []float64{10.0, 11.0}
-	minimum, exitStatus = rosenOptimizer.Minimize(rosenObjective, x0_2d)
+	minimum, exitStatus = rosenOptimizer.Minimize(100, rosenObjective, x0_2d)
 	stats = rosenOptimizer.OptimizationStatistics()
 	PrintResults(rosenMin, minimum, exitStatus, stats)
 
@@ -127,7 +127,7 @@ func main() {
 
 	// Minimize sphere function subject to bounds
 	fmt.Printf("----- Sphere Function with Bounds -----\n")
-	minimum, exitStatus = sphereOptimizer.Minimize(sphereObjective, x0_5d)
+	minimum, exitStatus = sphereOptimizer.Minimize(100, sphereObjective, x0_5d)
 	stats = sphereOptimizer.OptimizationStatistics()
 	PrintResults(sphereBoundsMin, minimum, exitStatus, stats)
 
@@ -146,7 +146,7 @@ func main() {
 		func(info *lbfgsb.OptimizationIterationInformation) {
 			LogOptimizationIteration(logger, info)
 		})
-	minimum, exitStatus = sphereOptimizer.Minimize(sphereObjective, x0_5d)
+	minimum, exitStatus = sphereOptimizer.Minimize(100, sphereObjective, x0_5d)
 	stats = sphereOptimizer.OptimizationStatistics()
 	PrintResults(sphereMin, minimum, exitStatus, stats)
 
@@ -159,7 +159,7 @@ func main() {
 	// Create eventual error by reversing bounds
 	sphereOptimizer.SetBoundsAll(5.0, -5.0)
 	fmt.Printf("----- Sphere Function with Usage Error -----\n")
-	minimum, exitStatus = sphereOptimizer.Minimize(sphereObjective, x0_5d)
+	minimum, exitStatus = sphereOptimizer.Minimize(100, sphereObjective, x0_5d)
 	stats = sphereOptimizer.OptimizationStatistics()
 	PrintResults(sphereMin, minimum, exitStatus, stats)
 	sphereOptimizer.ClearBounds()

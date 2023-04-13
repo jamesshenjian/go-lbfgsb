@@ -15,7 +15,7 @@ package lbfgsb
 // fortran-specific flags. We can use FFLAGS cgo directive to have an
 // original set of flags:
 // // #cgo FFLAGS: -fimplicit-none -finit-local-zero -fbounds-check
-
+//cgo LDFLAGS: -lgfortran -lquadmath -lm
 // But Cgo does not support FFLAGS yet (github issue #18975).  Also
 // introducing such a directive would break a compatibility with pre
 // 1.7 version of Go.  I think that everything should work properly
@@ -158,9 +158,9 @@ func (lbfgsb *Lbfgsb) SetBoundsAll(lower, upper float64) *Lbfgsb {
 //
 // The slice is interpreted as an interval as follows:
 //
-//     nil | []: [-Inf, +Inf]
-//     [x]: [-|x|, |x|]
-//     [l, u, ...]: [l, u]
+//	nil | []: [-Inf, +Inf]
+//	[x]: [-|x|, |x|]
+//	[l, u, ...]: [l, u]
 func (lbfgsb *Lbfgsb) SetBoundsSparse(sparseBounds map[int][]float64) *Lbfgsb {
 	// Check object has been initialized
 	if lbfgsb.dimensionality == 0 {
@@ -262,10 +262,11 @@ func (lbfgsb *Lbfgsb) SetLogger(
 // Minimize optimizes the given objective using the L-BFGS-B algorithm.
 // Implements OptimizationFunctionMinimizer.Minimize.
 func (lbfgsb *Lbfgsb) Minimize(
+	maxIter int,
 	objective FunctionWithGradient,
 	initialPoint []float64) (
-		minimum PointValueGradient,
-		exitStatus ExitStatus) {
+	minimum PointValueGradient,
+	exitStatus ExitStatus) {
 
 	// Make sure object has been initialized
 	lbfgsb.Init(len(initialPoint))
@@ -278,6 +279,8 @@ func (lbfgsb *Lbfgsb) Minimize(
 		exitStatus.Message = fmt.Sprintf("Lbfgsb: Dimensionality of the initial point (%d) does not match the dimensionality of the solver (%d).", dim, lbfgsb.dimensionality)
 		return
 	}
+
+	max_iter := C.int(maxIter)
 
 	// Set up bounds control.  Use a C-compatible type.
 	boundsControl := make([]C.int, dim)
@@ -348,7 +351,7 @@ func (lbfgsb *Lbfgsb) Minimize(
 
 	// Call the actual L-BFGS-B procedure
 	statusCode_c := C.lbfgsb_minimize_c(
-		callbackData_c, dim_c,
+		callbackData_c, dim_c, max_iter,
 		boundsControl_c, lowerBounds_c, upperBounds_c,
 		approximationSize_c, fTolerance_c, gTolerance_c,
 		x0_c, minX_c, minF_c, minG_c, &iters_c, &evals_c,
@@ -457,7 +460,7 @@ func go_objective_function_callback(
 	dim_c C.int, point_c, value_c *C.double,
 	callbackData_c unsafe.Pointer,
 	statusMessage_c *C.char, statusMessageLength_c C.int) (
-		statusCode_c C.int) {
+	statusCode_c C.int) {
 
 	var point []float64
 
@@ -488,7 +491,7 @@ func go_objective_gradient_callback(
 	dim_c C.int, point_c, gradient_c *C.double,
 	callbackData_c unsafe.Pointer,
 	statusMessage_c *C.char, statusMessageLength_c C.int) (
-		statusCode_c C.int) {
+	statusCode_c C.int) {
 
 	var point, gradient, gradRet []float64
 
@@ -521,7 +524,7 @@ func go_log_function_callback(
 	iteration_c, fgEvals_c, fgEvalsTotal_c C.int, stepLength_c C.double,
 	dim_c C.int, x_c *C.double, f_c C.double, g_c *C.double,
 	fDelta_c, fDeltaBound_c, gNorm_c, gNormBound_c C.double) (
-		statusCode_c C.int) {
+	statusCode_c C.int) {
 
 	var x, g []float64
 
