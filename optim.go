@@ -24,7 +24,7 @@ type ObjectiveFunctionMinimizer interface {
 	// objective function starting from the given point.  Returns the
 	// minimum (or the best point found) and the status of the algorithm
 	// at exit.
-	Minimize(objective FunctionWithGradient, initialPoint []float64) (
+	Minimize(maxIter int, objective FunctionWithGradient, initialPoint []float64) (
 		minimum PointValueGradient, exitStatus ExitStatus)
 }
 
