@@ -32,7 +32,7 @@ func (sf *SphereFunction) EvaluateGradient(point []float64) (grad []float64) {
 }
 
 // Runs gradient descent on the objective and displays results
-func main() {
+func main2() {
 	fmt.Printf("Go-Fortran optimization interface prototype\n\n")
 
 	objective := &SphereFunction{}

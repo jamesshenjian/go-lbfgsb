@@ -21,7 +21,7 @@ compile_options_fortran := -fimplicit-none -finit-local-zero
 # Compilation
 
 # Build the library by default
-all: liblbfgsb.a lbfgsb.syso
+all: liblbfgsb.a #lbfgsb.syso
 
 # FORTRAN 77 compilation.  The original L-BFGS-B makefile adds bounds
 # checking code with '-fbounds-check', so do that here in case it's

@@ -39,6 +39,7 @@ import (
 	"math"
 	"os"
 
+	. "github.com/jamesshenjian/go-lbfgsb"
 	// Import go-lbfgsb as a "third-party" package (since it was
 	// installed with 'go get').  Import as a local package if go-lbfgsb
 	// was installed into your workspace.  For example, if you put the
@@ -46,9 +47,6 @@ import (
 	// "optim/go-lbfgsb"'.  To allow this example program to use this
 	// package directly without installing anything and when this
 	// package exists outside a Go workspace, use 'import lbfgsb ".."'.
-	lbfgsb "github.com/jamesshenjian/go-lbfgsb"
-	//lbfgsb "go-lbfgsb"
-	//lbfsgb ".."
 )
 
 func main() {
@@ -60,11 +58,11 @@ func main() {
 	// Create default L-BFGS-B optimizer.  The solver adapts to any
 	// initial dimensionality but then must stick with that
 	// dimensionality.
-	sphereOptimizer := new(lbfgsb.Lbfgsb)
+	sphereOptimizer := new(Lbfgsb)
 
 	// Create sphere objective function as FunctionWithGradient object
 	sphereObjective := new(SphereFunction)
-	sphereMin := lbfgsb.PointValueGradient{
+	sphereMin := PointValueGradient{
 		X: []float64{0.0, 0.0, 0.0, 0.0, 0.0},
 		F: 0.0,
 		G: []float64{0.0, 0.0, 0.0, 0.0, 0.0},
@@ -82,16 +80,16 @@ func main() {
 
 	// Create a new solver for a new problem with a different
 	// dimensionality.  Make the tolerances strict.
-	rosenOptimizer := lbfgsb.NewLbfgsb(2).
+	rosenOptimizer := NewLbfgsb(2).
 		SetFTolerance(1e-10).SetGTolerance(1e-10)
 
 	// Create Rosenbrock objective function by composing individual
 	// value and gradient functions
-	rosenObjective := lbfgsb.GeneralObjectiveFunction{
+	rosenObjective := GeneralObjectiveFunction{
 		Function: RosenbrockFunction,
 		Gradient: RosenbrockGradient,
 	}
-	rosenMin := lbfgsb.PointValueGradient{
+	rosenMin := PointValueGradient{
 		X: []float64{1.0, 1.0},
 		F: 0.0,
 		G: []float64{0.0, 0.0},
@@ -119,7 +117,7 @@ func main() {
 	// Tell the optimizer about the bounds
 	sphereOptimizer.SetBounds(bounds)
 	// The constrained minimum is different
-	sphereBoundsMin := lbfgsb.PointValueGradient{
+	sphereBoundsMin := PointValueGradient{
 		X: []float64{1.0, -1.0, 1.0, -1.0, 0.0},
 		F: 4.0,
 		G: []float64{2.0, -2.0, 2.0, -2.0, 0.0},
@@ -143,7 +141,7 @@ func main() {
 	logger := log.New(os.Stderr, "log: ", log.LstdFlags)
 	// Make a closure for the logging function
 	sphereOptimizer.SetLogger(
-		func(info *lbfgsb.OptimizationIterationInformation) {
+		func(info *OptimizationIterationInformation) {
 			LogOptimizationIteration(logger, info)
 		})
 	minimum, exitStatus = sphereOptimizer.Minimize(100, sphereObjective, x0_5d)
@@ -163,6 +161,7 @@ func main() {
 	stats = sphereOptimizer.OptimizationStatistics()
 	PrintResults(sphereMin, minimum, exitStatus, stats)
 	sphereOptimizer.ClearBounds()
+
 }
 
 // Sphere (multi-dimensional parabola) function as a FunctionWithGradient object
@@ -214,8 +213,8 @@ func Pow2(x float64) float64 {
 }
 
 // Displays expected and actual results of optimization
-func PrintResults(expectedMin, actualMin lbfgsb.PointValueGradient,
-	exitStatus lbfgsb.ExitStatus, stats lbfgsb.OptimizationStatistics) {
+func PrintResults(expectedMin, actualMin PointValueGradient,
+	exitStatus ExitStatus, stats OptimizationStatistics) {
 
 	fmt.Printf("expected: X: %v\n          F: %v\n          G: %v\n",
 		expectedMin.X, expectedMin.F, expectedMin.G)
@@ -228,7 +227,7 @@ func PrintResults(expectedMin, actualMin lbfgsb.PointValueGradient,
 
 // Logs an optimization iteration to the given logger
 func LogOptimizationIteration(logger *log.Logger,
-	info *lbfgsb.OptimizationIterationInformation) {
+	info *OptimizationIterationInformation) {
 
 	// Print a header every 10 lines
 	if (info.Iteration-1)%10 == 0 {
