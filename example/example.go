@@ -10,27 +10,27 @@
 // Install go-lbfgsb and build by running the following commands from
 // this directory:
 //
-//     $ go get -d github.com/idavydov/go-lbfgsb
-//     $ pushd ~/go-pkgs/src/github.com/idavydov/go-lbfgsb
-//     $ make
-//     $ popd
-//     $ go get github.com/idavydov/go-lbfgsb
-//     $ go build
+//	$ go get -d github.com/idavydov/go-lbfgsb
+//	$ pushd ~/go-pkgs/src/github.com/idavydov/go-lbfgsb
+//	$ make
+//	$ popd
+//	$ go get github.com/idavydov/go-lbfgsb
+//	$ go build
 //
 // Then run.  Fun!
 //
-//     $ ./example
+//	$ ./example
 //
 // To uninstall:
 //
-//     $ go clean -i github.com/idavydov/go-lbfgsb
+//	$ go clean -i github.com/idavydov/go-lbfgsb
 //
 // You will have to remove the sources and extraneous directories
 // yourself.  Unfortunately 'go clean' does not appear to be that
 // sophisticated yet.
 //
-//     $ rm -R ~/go-pkgs/src/github.com/idavydov/go-lbfgsb
-//     $ find ~/go-pkgs -type d -empty -not -path '*/.*' -delete
+//	$ rm -R ~/go-pkgs/src/github.com/idavydov/go-lbfgsb
+//	$ find ~/go-pkgs -type d -empty -not -path '*/.*' -delete
 package main
 
 import (
@@ -46,7 +46,7 @@ import (
 	// "optim/go-lbfgsb"'.  To allow this example program to use this
 	// package directly without installing anything and when this
 	// package exists outside a Go workspace, use 'import lbfgsb ".."'.
-	lbfgsb "github.com/idavydov/go-lbfgsb"
+	lbfgsb "github.com/jamesshenjian/go-lbfgsb"
 	//lbfgsb "go-lbfgsb"
 	//lbfsgb ".."
 )

@@ -1,3 +1,3 @@
-module github.com/idavydov/go-lbfgsb
+module github.com/jamesshenjian/go-lbfgsb
 
 go 1.17
