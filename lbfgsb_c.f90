@@ -472,6 +472,8 @@ contains
        iters_c = int_state(30)
        if (iters_c > max_iter_c) then
           status_c = LBFGSB_STATUS_SUCCESS
+          state = 'WARNING'
+          message = 'Max iter reached before convergence'
           exit
        end if
     end do
