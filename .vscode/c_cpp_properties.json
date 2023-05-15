@@ -7,6 +7,7 @@
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
+            //"compilerPath": "C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/gcc.exe",  //for windows
             "cStandard": "c11",
             "cppStandard": "gnu++14",
             "intelliSenseMode": "linux-gcc-x64",

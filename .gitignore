@@ -13,3 +13,6 @@ lbfgsb*.mod
 liblbfgsb.a
 lbfgsb.syso
 example/example
+
+*.dll
+*.exe
