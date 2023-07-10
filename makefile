@@ -15,7 +15,8 @@ compiler := gfortran
 compile_options := -g 
 # General compiler warnings
 
-LINKOPT = -L"C:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0" -lgfortran
+#LINKOPT = -L"C:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0" -lgfortran
+LINKOPT = -L"C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.1.0" -lgfortran
 compile_warnings := -Wall -Wextra
 # Fortran compiler options.  Disallow implicit variables.
 compile_options_fortran := -fimplicit-none -finit-local-zero
