@@ -24,7 +24,7 @@ provided for Go (Golang), C, and Fortran 2003.
 
 This is a **fork** of
 [go-lbfgsb](https://github.com/idavydov/go-lbfgsb) by
-[@afbarnard](https://github.com/idavydov). Here I
+[@idavydov](https://github.com/idavydov). Here I
 ([@jamesshenjian](https://github.com/jamesshenjian)) added max 
 iteration parameter and and fixed issue similar to 
 https://github.com/ibmdb/go_ibm_db/issues/208 .
