@@ -15,7 +15,7 @@
 
 int lbfgsb_minimize_c
 (
- void *callback_data,
+ uintptr_t callback_data,
  int dim,
  int max_iter,
  int *bounds_control,
@@ -32,7 +32,7 @@ int lbfgsb_minimize_c
  int *evals,
  int fortran_print_control,
  int do_logging,
- void *log_function_callback_data,
+ uintptr_t log_function_callback_data,
  char *status_message,
  int status_message_length
  )
@@ -48,7 +48,7 @@ int lbfgsb_minimize_c
     (
      go_objective_function_callback,
      go_objective_gradient_callback,
-     callback_data,
+     (void*)callback_data,
      dim,
      max_iter,
      bounds_control,
@@ -65,7 +65,7 @@ int lbfgsb_minimize_c
      evals,
      fortran_print_control,
      log_function_pointer,
-     log_function_callback_data,
+     (void*)log_function_callback_data,
      status_message,
      status_message_length
      );

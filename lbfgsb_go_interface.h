@@ -7,9 +7,11 @@
 #ifndef __LBFGSB_GO_INTERFACE_H__
 #define __LBFGSB_GO_INTERFACE_H__
 
+#include <stdint.h>
+
 int lbfgsb_minimize_c
 (
- void *callback_data,
+ uintptr_t callback_data,
  int dim,
  int max_iter,
  int *bounds_control,
@@ -26,7 +28,7 @@ int lbfgsb_minimize_c
  int *evals,
  int fortran_print_control,
  int do_logging,
- void *log_function_callback_data,
+uintptr_t log_function_callback_data,
  char *status_message,
  int status_message_length
  );

@@ -309,15 +309,15 @@ func (lbfgsb *Lbfgsb) Minimize(
 	// Set up callbacks for function, gradient, and logging
 	cId := registerCallback(objective)
 	defer unregisterCallback(cId)
-	callbackData_c := unsafe.Pointer(cId)
-	var doLogging_c C.int                        // false
-	var logFunctionCallbackData_c unsafe.Pointer // null
+	callbackData_c := cId                 //unsafe.Pointer(cId)
+	var doLogging_c C.int                 // false
+	var logFunctionCallbackData_c uintptr // unsafe.Pointer // null
 	var loggerId uintptr
 	if lbfgsb.logger != nil {
 		doLogging_c = C.int(1) // true
 		loggerId = registerCallback(lbfgsb.logger)
 		defer unregisterCallback(loggerId)
-		logFunctionCallbackData_c = unsafe.Pointer(loggerId)
+		logFunctionCallbackData_c = loggerId //unsafe.Pointer(loggerId)
 	}
 
 	// Allocate arrays for return value
@@ -351,11 +351,11 @@ func (lbfgsb *Lbfgsb) Minimize(
 
 	// Call the actual L-BFGS-B procedure
 	statusCode_c := C.lbfgsb_minimize_c(
-		callbackData_c, dim_c, max_iter,
+		C.uintptr_t(callbackData_c), dim_c, max_iter,
 		boundsControl_c, lowerBounds_c, upperBounds_c,
 		approximationSize_c, fTolerance_c, gTolerance_c,
 		x0_c, minX_c, minF_c, minG_c, &iters_c, &evals_c,
-		printControl_c, doLogging_c, logFunctionCallbackData_c,
+		printControl_c, doLogging_c, C.uintptr_t(logFunctionCallbackData_c),
 		statusMessage_c, statusMessageLength_c,
 	)
 
