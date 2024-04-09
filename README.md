@@ -23,17 +23,12 @@ the authors of the algorithm, Jorge Nocedal et al.  Interfaces are
 provided for Go (Golang), C, and Fortran 2003.
 
 This is a **fork** of
-[go-lbfgsb](https://github.com/afbarnard/go-lbfgsb) by
-[@afbarnard](https://github.com/afbarnard). Here I
-([@idavydov](https://github.com/idavydov)) have fixed
-[a bug](https://github.com/afbarnard/go-lbfgsb/issues/4) related to
-the
-[change of cgo rules](https://github.com/golang/go/issues/12416). I
-hope eventially
-[my fix](https://github.com/afbarnard/go-lbfgsb/pull/7) gets accepted
-to the mainstream. For now you can use this repository in your
-imports. Also with go 1.7 or later you can install without make. The
-rest of the README is mostly kept unchanged.
+[go-lbfgsb](https://github.com/idavydov/go-lbfgsb) by
+[@afbarnard](https://github.com/idavydov). Here I
+([@jamesshenjian](https://github.com/jamesshenjian)) added max 
+iteration parameter and and fixed issue similar to 
+https://github.com/ibmdb/go_ibm_db/issues/208 .
+The rest of the README is mostly kept unchanged.
 
 License
 -------
