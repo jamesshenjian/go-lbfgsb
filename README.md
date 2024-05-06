@@ -26,7 +26,7 @@ This is a **fork** of
 [go-lbfgsb](https://github.com/idavydov/go-lbfgsb) by
 [@idavydov](https://github.com/idavydov). Here I
 ([@jamesshenjian](https://github.com/jamesshenjian)) added max 
-iteration parameter and and fixed issue similar to 
+iteration parameter and fixed issue similar to 
 https://github.com/ibmdb/go_ibm_db/issues/208 .
 The rest of the README is mostly kept unchanged.
 
